@@ -33,18 +33,22 @@ except Exception as e:
     st.stop()
 
 # ------------------- User Inputs -------------------
-col1, col2 = st.columns(2)
+st.header("🔎 Input Features")
 
-with col1:
-    age = st.number_input("Age", min_value=20, max_value=100, value=45)
-    alcohol = st.radio("Alcohol Consumption", ["No", "Yes"])
-    exercise_numeric = st.number_input("Weekly Exercise (hours)", min_value=0.0, max_value=50.0, value=3.0)
-    nrelbc_clean = st.selectbox("Family History of Breast Cancer", ["None", "Multiple", "Other"])
+age = st.number_input("Age", min_value=20, max_value=100, value=45)
+menarche = st.slider("Age at First Menstruation (Menarche)", 8, 20, 12)
+biopsies = st.number_input("Number of Prior Biopsies", min_value=0, max_value=10, value=1)
 
-with col2:
-    menarche = st.slider("Age at First Menstruation (Menarche)", 8, 20, 12)
-    tobacco = st.radio("Tobacco Use", ["No", "Yes"])
-    biopsies = st.number_input("Number of Prior Biopsies", min_value=0, max_value=10, value=1)
+alcohol = st.radio("Do you consume alcohol?", ["No", "Yes"])
+alcohol_binary = 1 if alcohol == "Yes" else 0
+
+tobacco = st.radio("Do you use tobacco?", ["No", "Yes"])
+tobacco_binary = 1 if tobacco == "Yes" else 0
+
+exercise_numeric = st.number_input("Weekly Exercise (hours)", min_value=0.0, max_value=50.0, value=3.0)
+
+nrelbc_clean = st.selectbox("Family History of Breast Cancer", ["None", "Multiple", "Other"])
+nrelbc_encoded = {"Other": 0, "None": 1, "Multiple": 2}[nrelbc_clean]
 
 # ------------------- Preprocessing -------------------
 alcohol_binary = 1 if alcohol == "Yes" else 0
